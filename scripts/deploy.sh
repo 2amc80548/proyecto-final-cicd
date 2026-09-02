@@ -1,19 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+APP_DIR="/opt/spring-boot-app"
+cd "$APP_DIR"
+mkdir -p "${APP_DIR}/logs" "${APP_DIR}/versions"
+
 NEW_JAR="${1:-}"
 
 if [[ -z "$NEW_JAR" ]]; then
-  NEW_JAR=$(find target -maxdepth 1 -name "*.jar" ! -name "*original*" 2>/dev/null | head -n 1 || true)
+  NEW_JAR=$(find . -name "*.jar" ! -name "*original*" ! -path "*/versions/*" 2>/dev/null | head -n 1 || true)
 fi
 
 if [[ -z "$NEW_JAR" || ! -f "$NEW_JAR" ]]; then
-  echo "❌ Error: No se encontró el archivo JAR a desplegar."
+  echo "❌ Error: No se encontró el archivo JAR a desplegar en ${APP_DIR}."
   exit 1
 fi
-
-APP_DIR="/opt/spring-boot-app"
-mkdir -p "${APP_DIR}/logs" "${APP_DIR}/versions"
 
 echo "🚀 Iniciando Despliegue Blue-Green"
 echo "📦 Artefacto seleccionado: ${NEW_JAR}"
