@@ -151,6 +151,6 @@ Ejecuta ráfagas de peticiones `curl` contra `/api/instance` para contabilizar y
 ```bash
 ./mvnw clean verify
 ```
-*(Reporte de cobertura disponible en `target/site/jacoco/index.html`)*.
+*(Reporte de cobertura disponible en `target/site/jacoco/index.html..`)*.
 
 ---
