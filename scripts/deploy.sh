@@ -70,11 +70,27 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if bash "${SCRIPT_DIR}/health-check.sh" "$NEW_PORT"; then
   echo "✅ Instancia ${NEW_INSTANCE} verificada exitosamente."
   
-  # Si Nginx está instalado, actualizar el backend upstream
+  # Si Nginx está instalado, actualizar el backend upstream conservando el bloque server en puerto 80
   NGINX_CONF="/etc/nginx/conf.d/upstream.conf"
   if [[ -d "/etc/nginx/conf.d" ]]; then
-    echo "upstream backend { server 127.0.0.1:${NEW_PORT}; }" | sudo tee "$NGINX_CONF" > /dev/null
-    sudo nginx -s reload 2>/dev/null || true
+    cat << EOF | sudo tee "$NGINX_CONF" > /dev/null
+upstream backend {
+    server 127.0.0.1:${NEW_PORT};
+}
+
+server {
+    listen 80;
+    server_name _;
+
+    location / {
+        proxy_pass http://backend;
+        proxy_set_header Host \$host;
+        proxy_set_header X-Real-IP \$remote_addr;
+        proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    }
+}
+EOF
+    sudo nginx -t 2>/dev/null && sudo systemctl reload nginx 2>/dev/null || sudo systemctl restart nginx 2>/dev/null || true
     echo "🔄 Nginx actualizado apuntando a ${NEW_INSTANCE} (: ${NEW_PORT})."
   fi
 
