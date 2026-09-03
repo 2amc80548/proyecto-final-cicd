@@ -732,7 +732,7 @@ El proyecto deberá demostrar que el proceso de entrega de software puede ejecut
 * **Repetible**
 * **Verificable**
 * **Trazable**
-* **Documentada**
+* **Documentaa**
 
 ---
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-
+#antes de  mandar a todos nuestro usuarios  a la nueva version
 PORT="${1:-8080}"
 HOST="${2:-localhost}"
 URL="http://${HOST}:${PORT}/health"
@@ -21,3 +21,5 @@ done
 
 echo "❌ Error: La aplicación no respondió exitosamente en puerto ${PORT} tras ${MAX_ATTEMPTS} intentos."
 exit 1
+
+#activa rollback automatico si no da 
