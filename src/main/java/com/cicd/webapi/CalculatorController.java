@@ -12,10 +12,7 @@ import java.util.Map;
 import org.springframework.http.MediaType;
 
 @RestController
-@RequestMapping("/api/calculator")
-public class CalculatorController {
-
-    private final Calculator calculator = new Calculator();
+class CalculatorUIController {
 
     @GetMapping(value = "/calculator", produces = MediaType.TEXT_HTML_VALUE)
     public String calculatorUI() {
@@ -81,6 +78,13 @@ public class CalculatorController {
             </html>
             """;
     }
+}
+
+@RestController
+@RequestMapping("/api/calculator")
+public class CalculatorController {
+
+    private final Calculator calculator = new Calculator();
 
     @GetMapping("/add")
     public Map<String, Object> add(@RequestParam int a, @RequestParam int b) {
