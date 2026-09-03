@@ -26,7 +26,7 @@ jobs:
       run: mvn -B clean package --file pom.xml -DskipTests
 
     - name: Run unit tests with Maven
-      run: mvn -B test --file pomxml
+      run: mvn -B test --file pom.xml
 
     - name: Run Code Coverage (JaCoCo) with Maven
       run: mvn -B jacoco:report --file pom.xml
