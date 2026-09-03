@@ -43,10 +43,9 @@ class WebapiApplicationTests {
 
 	@Test
 	void checkRootResponse() throws Exception {
-		MockMvc.perform(get("/")
-				.accept(MediaType.TEXT_PLAIN))
+		MockMvc.perform(get("/"))
 			.andExpect(status().isOk())
-			.andExpect(content().string("Hello CI/CD World!"));
+			.andExpect(content().string(org.hamcrest.Matchers.containsString("Proyecto Final")));
 	}
 
 	@Test
