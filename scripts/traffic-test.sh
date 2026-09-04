@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-#prueba de carga  realiza peticiones para ver el trafico en cada una 
+
 TARGET_URL="${1:-http://localhost:8080/api/instance}"
 NUM_REQUESTS="${2:-20}"
 

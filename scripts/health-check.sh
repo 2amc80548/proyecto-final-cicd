@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -euo pipefail
-#antes de  mandar a todos nuestro usuarios  a la nueva version
+
 PORT="${1:-8080}"
 HOST="${2:-localhost}"
 URL="http://${HOST}:${PORT}/health"
