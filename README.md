@@ -153,4 +153,6 @@ Ejecuta ráfagas de peticiones `curl` contra `/api/instance` para contabilizar y
 ```
 *(Reporte de cobertura disponible en `target/site/jacoco/index.html..`)*.
 
+### **Ejecutar pruebas unitarias y cobertura JaCoCo:**
+
 ---
